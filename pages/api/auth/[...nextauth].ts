@@ -45,10 +45,16 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     },
     secret: process.env.SECRET,
     callbacks: {
-      session: ({ session, token, user }) => {
-        console.log("session", session);
-        console.log("token", token);
-        console.log("user", user);
+      async jwt({ token, user }) {
+        if (user) {
+          token.id = user.id;
+        }
+        return token;
+      },
+      async session({ session, token }) {
+        if (session) {
+          session.user.id = token.id;
+        }
         return session;
       },
     },

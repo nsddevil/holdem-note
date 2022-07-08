@@ -27,7 +27,7 @@ export default async function loginHandler(
           .json({ error: "이메일과 비밀번호를 확인해주세요" });
       }
 
-      res.status(200).json({ _id: result._id, email: result.email });
+      res.status(200).json({ id: result._id.toString(), email: result.email });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }
