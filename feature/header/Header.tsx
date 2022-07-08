@@ -1,18 +1,18 @@
 import Link from "next/link";
 import React, { useCallback, useState } from "react";
-import { useSession } from "next-auth/react";
 import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktopNav";
+import { useAppSelector } from "../../app/hooks";
 
 function Header() {
   const [isNav, setIsNav] = useState(false);
-  const { data: session, status } = useSession();
+  const { user } = useAppSelector((state) => state.auth);
   const onSetNav = useCallback(() => {
     setIsNav((prev) => !prev);
   }, []);
 
   return (
-    <div className="sticky h-24 border-b border-b-purple-300">
+    <header className="sticky h-24 border-b border-b-purple-300">
       <div className="p-4 h-full flex items-center justify-between relative">
         <div>
           <Link href="/">
@@ -21,10 +21,10 @@ function Header() {
             </h1>
           </Link>
         </div>
-        <MobileNav isNav={isNav} user={session?.user} onSetNav={onSetNav} />
-        <DesktopNav user={session?.user} />
+        <MobileNav isNav={isNav} user={user} onSetNav={onSetNav} />
+        <DesktopNav user={user} />
       </div>
-    </div>
+    </header>
   );
 }
 

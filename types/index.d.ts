@@ -1,5 +1,6 @@
 export interface UserInfo {
-  name: string;
+  _id?: string;
   email: string;
-  image: string;
+  name?: string;
+  image?: string;
 }

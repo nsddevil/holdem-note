@@ -3,6 +3,7 @@ import { signIn, signOut } from "next-auth/react";
 import Avatar from "./Avatar";
 import { UserInfo } from "../../types";
 import { MdClose, MdMenu } from "react-icons/md";
+import Link from "next/link";
 
 interface MobileNavProps {
   isNav: boolean;
@@ -45,9 +46,14 @@ function MobileNav({ isNav, user, onSetNav }: MobileNavProps) {
             >
               Login
             </li>
-            <li className="p-4 text-xl font-semibold border-b hover:bg-white hover:text-black cursor-pointer">
-              Register
-            </li>
+            <Link href="/register">
+              <li
+                className="p-4 text-xl font-semibold border-b hover:bg-white hover:text-black cursor-pointer"
+                onClick={() => onSetNav()}
+              >
+                Register
+              </li>
+            </Link>
           </>
         )}
       </ul>

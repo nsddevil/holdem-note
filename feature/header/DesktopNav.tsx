@@ -1,4 +1,5 @@
 import { signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 import React from "react";
 import { UserInfo } from "../../types";
 import Avatar from "./Avatar";
@@ -28,9 +29,11 @@ function DesktopNav({ user }: DesktopNavProps) {
           >
             Login
           </li>
-          <li className="px-4 py-2 text-lg cursor-pointer border border-purple-500 rounded hover:scale-105">
-            Register
-          </li>
+          <Link href="/register">
+            <li className="px-4 py-2 text-lg cursor-pointer border border-purple-500 rounded hover:scale-105">
+              Register
+            </li>
+          </Link>
         </>
       )}
     </ul>
