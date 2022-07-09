@@ -7,33 +7,35 @@ import React, {
   useState,
 } from "react";
 import { toast } from "react-toastify";
+import Loading from "../components/Loading";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const loginRef = useRef<HTMLInputElement>(null);
 
-  const onLogin = async (e: FormEvent<HTMLFormElement>) => {
+  const onWithEmail = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!email.trim() || !password.trim()) {
+    if (!email.trim()) {
       toast.error("빈항목을 입력하세요");
-      return;
     }
-    const result = await signIn("holdem-note", {
+    setLoading(true);
+    const result = await signIn("email", {
       email,
-      password,
-      redirect: false,
+      callbackUrl: "http://localhost:3000",
     });
-
-    if (!result?.ok) {
-      return toast.error(result?.error);
+    setLoading(false);
+    if (result?.error) {
+      toast.error(result.error);
     }
   };
   const onGoogle = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setLoading(true);
     await signIn("google", {
       callbackUrl: "http://localhost:3000",
     });
+    setLoading(false);
   };
   useEffect(() => {
     if (loginRef.current !== null) {
@@ -47,7 +49,7 @@ function LoginForm() {
         <h1 className="py-4 text-3xl text-purple-500 font-bold tracking-wider text-center">
           Login
         </h1>
-        <form className="mt-4 flex flex-col gap-6" onSubmit={onLogin}>
+        <form className="mt-4 flex flex-col gap-6" onSubmit={onWithEmail}>
           <div>
             <input
               ref={loginRef}
@@ -60,21 +62,11 @@ function LoginForm() {
             />
           </div>
           <div>
-            <input
-              className="w-full p-4 border rounded-lg text-lg"
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div>
             <button
               type="submit"
               className="w-full p-4 text-xl bg-purple-400 text-white font-bold rounded hover:bg-purple-500 capitalize"
             >
-              Login
+              with Email
             </button>
           </div>
           <p className="text-center text-gray-500 text-sm">OR</p>
@@ -89,6 +81,7 @@ function LoginForm() {
           </div>
         </form>
       </div>
+      {loading && <Loading />}
     </div>
   );
 }

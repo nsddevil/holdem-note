@@ -16,7 +16,10 @@ function DesktopNav({ user }: DesktopNavProps) {
           <Avatar image={user.image} email={user.email} />
           <li
             className="px-4 py-2 text-lg flex items-center justify-center cursor-pointer rounded bg-purple-500 text-white hover:scale-105"
-            onClick={() => signOut()}
+            onClick={() => {
+              console.log("click");
+              signOut();
+            }}
           >
             Logout
           </li>
@@ -29,11 +32,6 @@ function DesktopNav({ user }: DesktopNavProps) {
           >
             Login
           </li>
-          <Link href="/register">
-            <li className="px-4 py-2 text-lg cursor-pointer border border-purple-500 rounded hover:scale-105">
-              Register
-            </li>
-          </Link>
         </>
       )}
     </ul>
