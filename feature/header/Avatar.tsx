@@ -24,7 +24,7 @@ function Avatar({ image, email, size = 30, alt = "/" }: AvatarProps) {
         <MdPerson size={size} />
       )}
 
-      <span className="text-sm text-gray-300">{email}</span>
+      <span className="text-sm text-gray-500">{email}</span>
     </div>
   );
 }

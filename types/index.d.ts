@@ -4,3 +4,10 @@ export interface UserInfo {
   name?: string;
   image?: string;
 }
+
+export interface ColorList {
+  id: string;
+  color: string;
+}
+
+export type ColorType = "purple" | "red" | "blue" | "yellow" | "green" | "gray";

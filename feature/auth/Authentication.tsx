@@ -12,10 +12,8 @@ function Authentication({ children }: AuthenticationProps) {
       {user ? (
         <>{children}</>
       ) : (
-        <div className="h-screen flex items-center justify-center">
-          <h1 className="-mt-24 text-4xl fong-bold">
-            로그인후 이용가능 합니다.
-          </h1>
+        <div className="h-[calc(100vh-6rem)] flex items-center justify-center">
+          <h1 className="text-4xl fong-bold">로그인후 이용가능 합니다.</h1>
         </div>
       )}
     </>
